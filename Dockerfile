@@ -1,35 +1,31 @@
-FROM ubuntu:latest
+FROM php:7.0-apache
 MAINTAINER atsu666
 
-RUN apt-get -y update
-# RUN apt-get -y install software-properties-common
-# RUN apt-get -y install python-software-properties
-# RUN add-apt-repository ppa:ondrej/php5
-RUN apt-get -y update
+# extension
+RUN apt-get update \
+    && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libpng12-dev \
+    && docker-php-ext-install -j$(nproc) iconv mcrypt \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
 
-# Install wget
-RUN apt-get -y install wget
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install mbstring
 
-# Install apache
-RUN apt-get -y install apache2
-RUN /usr/sbin/a2enmod rewrite
-ADD apache.conf apache.conf
-RUN cat apache.conf >> /etc/apache2/sites-available/000-default.conf && \
-    rm apache.conf
+# ioncube loader
+RUN curl -fsSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz' -o ioncube.tar.gz \
+    && mkdir -p ioncube \
+    && tar -xf ioncube.tar.gz -C ioncube --strip-components=1 \
+    && rm ioncube.tar.gz \
+    && mv ioncube/ioncube_loader_lin_7.0.so /var/www/ioncube_loader_lin_7.0.so \
+    && rm -r ioncube
 
-# Install php
-RUN apt-get -y install libapache2-mod-php5 php5-mysql php5-gd
+# php.ini
+COPY config/php.ini /usr/local/etc/php/
 
-# Download ioncube loader
-RUN cd /var/www/html && \
-    wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
-    tar zxvf ioncube_loaders_lin_x86-64.tar.gz && \
-    rm ioncube_loaders_lin_x86-64.tar.gz && \
-    echo "zend_extension = /var/www/html/ioncube/ioncube_loader_lin_5.5.so" > /etc/php5/apache2/php.ini
-
-# Run
-ADD run.sh run.sh
-RUN chmod 755 /*.sh
-
-EXPOSE 80
-CMD ["./run.sh"]
+# apache
+RUN a2enmod rewrite
+RUN a2enmod ssl
