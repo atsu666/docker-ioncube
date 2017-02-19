@@ -27,6 +27,10 @@ RUN curl -fsSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_l
 # php.ini
 COPY config/php.ini /usr/local/etc/php/
 
+# apache user
+RUN usermod -u 1000 www-data \
+    && groupmod -g 1000 www-data
+
 # apache
 RUN a2enmod rewrite
 RUN a2enmod ssl
