@@ -11,6 +11,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install -j$(nproc) zip \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install gettext \
     && docker-php-ext-install pdo_mysql
@@ -25,6 +26,10 @@ RUN curl -fsSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_l
 
 # php.ini
 COPY config/php.ini /usr/local/etc/php/
+
+# apache user
+RUN usermod -u 1000 www-data \
+    && groupmod -g 1000 www-data
 
 # apache
 RUN a2enmod rewrite
