@@ -39,3 +39,8 @@ COPY config/php.ini /usr/local/etc/php/
 # apache
 RUN a2enmod rewrite
 RUN a2enmod ssl
+
+COPY entrypoint.sh /usr/local/bin/
+RUN ["chmod", "+x", "/usr/local/bin/entrypoint.sh"]
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
