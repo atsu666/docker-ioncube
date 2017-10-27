@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 MAINTAINER atsu666
 
 # apache user
@@ -33,7 +33,7 @@ RUN curl -fsSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_l
     && mkdir -p ioncube \
     && tar -xf ioncube.tar.gz -C ioncube --strip-components=1 \
     && rm ioncube.tar.gz \
-    && mv ioncube/ioncube_loader_lin_7.0.so /var/www/ioncube_loader_lin_7.0.so \
+    && mv ioncube/ioncube_loader_lin_7.1.so /var/www/ioncube_loader_lin_7.1.so \
     && rm -r ioncube
 
 # php.ini
