@@ -27,7 +27,7 @@ services:
             - "80:80"
     # www
     www:
-        image: atsu666/ioncube:7.1
+        image: atsu666/ioncube:7.2
         privileged: true
         volumes:
             - ./www:/var/www/html
