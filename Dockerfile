@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7.3-apache
 MAINTAINER atsu666
 
 # apache user
@@ -13,6 +13,7 @@ RUN apt-get update \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng-dev \
+        libzip-dev \
         jpegoptim \
         optipng \
         gifsicle \
@@ -31,7 +32,7 @@ RUN apt-get update \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mysqli \
     && docker-php-ext-enable mysqli \
-    && pecl install xdebug-2.6.0beta1 \
+    && pecl install xdebug-beta \
         imagick \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-enable imagick \
@@ -42,7 +43,7 @@ RUN curl -fSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_li
     && mkdir -p ioncube \
     && tar -xf ioncube.tar.gz -C ioncube --strip-components=1 \
     && rm ioncube.tar.gz \
-    && mv ioncube/ioncube_loader_lin_7.2.so /var/www/ioncube_loader_lin_7.2.so \
+    && mv ioncube/ioncube_loader_lin_7.3.so /var/www/ioncube_loader_lin_7.3.so \
     && rm -r ioncube
 
 # composer
