@@ -22,6 +22,7 @@ RUN apt-get update \
         build-essential \
         openssl \
         libssl-dev \
+        libonig-dev \
         python2.7 \
         zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
