@@ -13,6 +13,7 @@ RUN apt-get update \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng-dev \
+        libwebp-dev \
         libzip-dev \
         jpegoptim \
         optipng \
@@ -25,7 +26,7 @@ RUN apt-get update \
         libonig-dev \
         python2.7 \
         zip \
-    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
+    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ --with-webp=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) zip \
     && docker-php-ext-install mbstring \
