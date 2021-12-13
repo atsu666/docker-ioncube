@@ -34,9 +34,7 @@ RUN apt-get update \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mysqli \
     && docker-php-ext-enable mysqli \
-    && pecl install xdebug-beta \
-        imagick \
-    && docker-php-ext-enable xdebug \
+    && pecl install imagick \
     && docker-php-ext-enable imagick \
     && ln -s /usr/bin/python2.7 /usr/bin/python
 
