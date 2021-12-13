@@ -25,7 +25,9 @@ RUN apt-get update \
     && docker-php-ext-install gettext \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mysql \
-    && pecl install imagick \
+    && pecl install xdebug-2.5.0 \
+        imagick \
+    && docker-php-ext-enable xdebug \
     && docker-php-ext-enable imagick
 
 # ioncube loader
