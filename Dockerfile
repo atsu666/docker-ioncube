@@ -12,7 +12,7 @@ RUN apt-get update \
         libmagickwand-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-        libpng12-dev \
+        libpng-dev \
         jpegoptim \
         optipng \
         gifsicle \
