@@ -9,9 +9,14 @@ echo "127.0.0.1 $(hostname).localdomain $(hostname)" >> /etc/hosts
 # document root
 echo "${APACHE_DOCUMENT_ROOT}"
 
+INIT_FILE="/var/www/init.txt"
+
 if test "${APACHE_DOCUMENT_ROOT}" != ""; then
-    sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf
-    sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+    if [ ! -e $INIT_FILE ]; then
+        sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/sites-available/*.conf
+        sed -ri -e "s!/var/www/!${APACHE_DOCUMENT_ROOT}!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+        touch $INIT_FILE
+    fi
 fi
 
 service sendmail restart
