@@ -40,6 +40,7 @@ RUN curl -fsSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_l
 COPY config/php.ini /usr/local/etc/php/
 
 # apache
+RUN echo "Mutex posixsem" >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 RUN a2enmod ssl
 
