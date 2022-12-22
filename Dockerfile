@@ -69,6 +69,7 @@ RUN usermod -u 1000 www-data \
     && groupmod -g 1000 www-data
 
 # apache
+RUN echo "Mutex posixsem" >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 RUN a2enmod ssl
 
