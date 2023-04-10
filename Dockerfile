@@ -36,7 +36,7 @@ RUN curl -fsSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_l
     && rm -r ioncube
 
 # php.ini
-COPY config/php.ini /usr/local/etc/php/
+COPY config/custom.ini //etc/php5/apache2/conf.d/
 
 # apache
 RUN echo "Mutex posixsem" >> /etc/apache2/apache2.conf
