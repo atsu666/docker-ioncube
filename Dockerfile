@@ -16,6 +16,9 @@ RUN apt-get update \
         jpegoptim \
         optipng \
         gifsicle \
+        curl \
+        zip \
+        unzip \
         sendmail \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -28,10 +31,10 @@ RUN apt-get update \
     && docker-php-ext-enable imagick
 
 # ioncube loader
-RUN curl -fsSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz' -o ioncube.tar.gz \
+RUN curl -fSL 'http://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_aarch64.zip' -o ioncube.zip \
     && mkdir -p ioncube \
-    && tar -xf ioncube.tar.gz -C ioncube --strip-components=1 \
-    && rm ioncube.tar.gz \
+    && unzip ioncube.zip \
+    && rm ioncube.zip \
     && mv ioncube/ioncube_loader_lin_7.0.so /var/www/ioncube_loader_lin_7.0.so \
     && rm -r ioncube
 
