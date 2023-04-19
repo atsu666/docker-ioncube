@@ -28,10 +28,10 @@ RUN apt-get update \
     && docker-php-ext-enable imagick
 
 # ioncube loader
-RUN curl -fsSL 'http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz' -o ioncube.tar.gz \
+RUN curl -fSL 'https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_aarch64.zip' -o ioncube.zip \
     && mkdir -p ioncube \
-    && tar -xf ioncube.tar.gz -C ioncube --strip-components=1 \
-    && rm ioncube.tar.gz \
+    && unzip ioncube.zip \
+    && rm ioncube.zip \
     && mv ioncube/ioncube_loader_lin_7.1.so /var/www/ioncube_loader_lin_7.1.so \
     && rm -r ioncube
 
