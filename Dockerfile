@@ -40,11 +40,11 @@ RUN apt-get update \
     && ln -s /usr/bin/python2.7 /usr/bin/python
 
 # ioncube loader
-RUN curl -fSL 'http://downloads.ioncube.com/loader_downloads/ioncube_loaders_dar_arm64.zip' -o ioncube.zip \
+RUN curl -fSL 'https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_aarch64.zip' -o ioncube.zip \
     && mkdir -p ioncube \
     && unzip ioncube.zip \
     && rm ioncube.zip \
-    && mv ioncube/ioncube_loader_dar_7.4.so /var/www/ioncube_loader_dar_7.4.so \
+    && mv ioncube/ioncube_loader_lin_7.4.so /var/www/ioncube_loader_lin_7.4.so \
     && rm -r ioncube
 
 # composer
